@@ -15,10 +15,8 @@ export class GifsService {
     return [...this._record];
   }
   constructor(private http: HttpClient) {
-    this._record = JSON.parse(localStorage.getItem('record')!) || []
-    // if(localStorage.getItem('record')) {
-    //   this._record = JSON.parse(localStorage.getItem('record')!)
-    // }
+    this._record = JSON.parse(localStorage.getItem('record')!) || [];
+    this.results = JSON.parse(localStorage.getItem('results')!) || [];
   }
 
   searchGifs(query: string) {
@@ -35,6 +33,7 @@ export class GifsService {
       .subscribe((resp) => {
         console.log(resp.data);
         this.results = resp.data;
+        localStorage.setItem('results', JSON.stringify(this.results));
       });
   }
 }
